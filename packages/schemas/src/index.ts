@@ -16,3 +16,11 @@ export type {
   WidgetId,
   WidgetKind
 } from "./domain";
+
+export type {
+  ApiSuccess,
+  ApiFailure,
+  ApiResponse
+} from "./api";
+
+export {unwrapApiResponse}  from "./api"
