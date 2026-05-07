@@ -24,3 +24,5 @@ export type {
 } from "./api";
 
 export {unwrapApiResponse}  from "./api"
+
+export {getWidgetDisplayLabel, assertNever} from "./widget-utils"
