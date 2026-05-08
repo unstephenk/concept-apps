@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { User } from "../types/user";
 
 const fetchUsers = async (): Promise<User[]> => {
@@ -18,22 +18,25 @@ export function useUsers() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isError, setIsError] = useState<boolean>(false);
 
-    useEffect(() => {
-        const getUsers = async () => {
-            setIsLoading(true);
-            try {
-                const data = await fetchUsers();
-                setUsers(data);
-                setIsError(false);
-
-            } catch (err) {
-                setIsError(true);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        getUsers();
+    const refetch = useCallback(async () => {
+        setIsLoading(true);
+        setIsError(false);
+        try {
+            const data = await fetchUsers();
+            setUsers(data);
+        } catch (err) {
+            setIsError(true);
+        } finally {
+            setIsLoading(false);
+        }
     }, []);
 
-    return { users, isLoading, isError };
+   useEffect(() => {
+    alert("triggered")
+        refetch();
+    }, [refetch]);
+
+
+
+    return { users, isLoading, isError, refetch: ()=> Promise<void> };
 }

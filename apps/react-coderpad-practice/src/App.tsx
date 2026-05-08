@@ -4,7 +4,7 @@ import { useUsers } from "./hooks/useUsers";
 
 function App() {
 
-  const { users, isLoading, isError } = useUsers();
+  const { users, isLoading, isError, refetch } = useUsers();
   
 
   return (
@@ -16,6 +16,7 @@ function App() {
       {isError && <p>Failed to load users.</p>}
 
       {!isLoading && !isError && (
+        <>
         <ul>
           {users.map((user) => (
             <li key={user.id}>
@@ -23,6 +24,9 @@ function App() {
             </li>
           ))}
         </ul>
+
+        <button onClick={refetch}>Reload Users</button>
+        </>
       )}
 
     </main>
