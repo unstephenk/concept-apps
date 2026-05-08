@@ -18,6 +18,7 @@ const products: Product[] = [
 // create a new temporary map
 // add each item to the new map and use the category as the key
 // return the values
+// Now update the function so each category’s products are sorted from lowest price to highest price
 
 function groupProductsByCategory(products: Product[]): Record<string, Product[]> {
 
@@ -34,6 +35,10 @@ function groupProductsByCategory(products: Product[]): Record<string, Product[]>
 
   }
 
+  for (const category in productsByCategory) {
+    productsByCategory[category].sort((a,b) => a.price - b.price);
+  }
+
   return productsByCategory
 }
 
@@ -47,6 +52,3 @@ async function run() {
 }
 
 run();
-
-
-// Two things. First, I still need my reimbursement for the UTA Application Fee. Can you review my notes and let me know what else I could possibly do? I have contacted two different people from UTA and the receipts they gave me were denied. Second, Claire from my last chat recommended I go ahead and purchase the course and ask for reimbursement. How can I ensure that I will get reimbursed?
