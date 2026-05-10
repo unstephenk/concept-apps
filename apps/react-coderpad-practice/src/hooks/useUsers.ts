@@ -32,7 +32,6 @@ export function useUsers() {
     }, []);
 
    useEffect(() => {
-    alert("triggered")
         refetch();
     }, [refetch]);
 
