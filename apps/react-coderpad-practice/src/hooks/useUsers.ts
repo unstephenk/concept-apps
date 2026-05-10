@@ -37,5 +37,5 @@ export function useUsers() {
 
 
 
-    return { users, isLoading, isError, refetch: ()=> Promise<void> };
+    return { users, isLoading, isError, refetch };
 }
