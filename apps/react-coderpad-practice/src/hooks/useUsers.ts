@@ -17,12 +17,10 @@ export function useUsers() {
     const [users, setUsers] = useState<User[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isError, setIsError] = useState<boolean>(false);
-    const [isEmpty, setIsEmpty] = useState<boolean>(true);
 
     const refetch = useCallback(async () => {
         setIsLoading(true);
         setIsError(false);
-        setIsEmpty(true);
 
         try {
             const data = await fetchUsers();
@@ -31,18 +29,14 @@ export function useUsers() {
             setIsError(true);
         } finally {
             setIsLoading(false);
-
-            if (users.length !== 0) {
-                setIsEmpty(false);
-            }
         }
     }, []);
 
-   useEffect(() => {
+    useEffect(() => {
         refetch();
     }, [refetch]);
 
-
+    const isEmpty = users.length === 0;
 
     return { users, isLoading, isError, isEmpty, refetch };
 }

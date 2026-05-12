@@ -25,7 +25,7 @@ function App() {
         <>
           <UserList users={users} />
 
-          <button onClick={refetch}>Reload Users</button>
+          <button onClick={refetch}  disabled={isLoading}>Reload Users</button>
         </>
       )}
 
