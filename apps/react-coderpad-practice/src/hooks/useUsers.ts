@@ -5,9 +5,9 @@ const fetchUsers = async (): Promise<User[]> => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve([
-                // { id: "u1", name: "Alice Johnson", email: "alice@test.com" },
-                // { id: "u2", name: "Bob Smith", email: "bob@test.com" },
-                // { id: "u3", name: "Charlie Davis", email: "charlie@test.com" },
+                { id: "u1", name: "Alice Johnson", email: "alice@test.com" },
+                { id: "u2", name: "Bob Smith", email: "bob@test.com" },
+                { id: "u3", name: "Charlie Davis", email: "charlie@test.com" },
             ]);
         }, 1000);
     });
