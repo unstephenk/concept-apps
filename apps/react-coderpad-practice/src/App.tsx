@@ -1,31 +1,31 @@
 import { useUsers } from "./hooks/useUsers";
-
+import EmptyState from "./components/EmptyState"
+import UserList from "./components/UserList";
+import ErrorMessage from "./components/ErrorMessage";
 
 
 function App() {
 
-  const { users, isLoading, isError, refetch } = useUsers();
-  
+  const { users, isLoading, isError, isEmpty, refetch } = useUsers();
+
 
   return (
     <main style={{ padding: "1rem" }}>
       <h1>User Admin</h1>
 
-      {isLoading && <p>Loading users...</p>}
+      {isLoading && <EmptyState message={"Loading users..."} />}
 
-      {isError && <p>Failed to load users.</p>}
+      {isError && <ErrorMessage message={"Failed to load users."} />}
+
+      {!isLoading && !isError && isEmpty && (
+        <EmptyState message={"No users found."} />
+      )}
 
       {!isLoading && !isError && (
         <>
-        <ul>
-          {users.map((user) => (
-            <li key={user.id}>
-              <strong>{user.name}</strong> — {user.email}
-            </li>
-          ))}
-        </ul>
+          <UserList users={users} />
 
-        <button onClick={refetch}>Reload Users</button>
+          <button onClick={refetch}>Reload Users</button>
         </>
       )}
 
