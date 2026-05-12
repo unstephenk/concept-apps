@@ -1,21 +1,18 @@
-import { useMemo, useState } from "react"
+import { useMemo, useState } from "react";
 
 import { useUsers } from "./hooks/useUsers";
-import EmptyState from "./components/EmptyState"
+import EmptyState from "./components/EmptyState";
 import UserList from "./components/UserList";
 import ErrorMessage from "./components/ErrorMessage";
 
-
 function App() {
-
   const { users, isLoading, isError, isEmpty, refetch } = useUsers();
   const [searchTerm, setSearchTerm] = useState("");
 
-  const normalizedSearch = searchTerm.trim().toLowerCase();
-
   const filteredUsers = useMemo(() => {
-    return users.filter((user) => {
+    const normalizedSearch = searchTerm.trim().toLowerCase();
 
+    return users.filter((user) => {
       return (
         user.name.toLowerCase().includes(normalizedSearch) ||
         user.email.toLowerCase().includes(normalizedSearch)
@@ -23,7 +20,7 @@ function App() {
     });
   }, [users, searchTerm]);
 
-  const hasSearchTerm = normalizedSearch.length > 0;
+  const hasSearchTerm = searchTerm.trim().length > 0;
   const hasNoMatchingUsers = hasSearchTerm && filteredUsers.length === 0;
 
   return (
@@ -41,11 +38,13 @@ function App() {
 
       <br />
 
-      <button onClick={refetch} disabled={isLoading}>Reload Users</button>
+      <button onClick={refetch} disabled={isLoading}>
+        Reload Users
+      </button>
 
-      {isLoading && <EmptyState message={"Loading users..."} />}
+      {isLoading && <EmptyState message="Loading users..." />}
 
-      {isError && <ErrorMessage message={"Failed to load users."} />}
+      {isError && <ErrorMessage message="Failed to load users." />}
 
       {!isLoading && !isError && isEmpty && (
         <EmptyState message="No users found." />
@@ -58,7 +57,6 @@ function App() {
       {!isLoading && !isError && !isEmpty && !hasNoMatchingUsers && (
         <UserList users={filteredUsers} />
       )}
-
     </main>
   );
 }
