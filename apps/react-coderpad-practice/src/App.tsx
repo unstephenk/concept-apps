@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 import { useUsers } from "./hooks/useUsers";
 import EmptyState from "./components/EmptyState"
@@ -13,12 +13,15 @@ function App() {
 
   const normalizedSearch = searchTerm.trim().toLowerCase();
 
-  const filteredUsers = users.filter((user) => {
-    return (
-      user.name.toLowerCase().includes(normalizedSearch) ||
-      user.email.toLowerCase().includes(normalizedSearch)
-    );
-  });
+  const filteredUsers = useMemo(() => {
+    return users.filter((user) => {
+
+      return (
+        user.name.toLowerCase().includes(normalizedSearch) ||
+        user.email.toLowerCase().includes(normalizedSearch)
+      );
+    });
+  }, [users, searchTerm]);
 
   const hasSearchTerm = normalizedSearch.length > 0;
   const hasNoMatchingUsers = hasSearchTerm && filteredUsers.length === 0;
