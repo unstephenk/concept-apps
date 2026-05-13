@@ -15,6 +15,7 @@ const fetchUsers = async (): Promise<User[]> => {
 
 export function useUsers() {
     const [users, setUsers] = useState<User[]>([]);
+    // const [fullUserSet, setFullUserSet] = useState<User[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isError, setIsError] = useState<boolean>(false);
 
@@ -38,5 +39,9 @@ export function useUsers() {
 
     const isEmpty = users.length === 0;
 
-    return { users, isLoading, isError, isEmpty, refetch };
+    const addUser = (newUser: User) => {
+        setUsers((currentUserSet) => [...currentUserSet, newUser])
+    }
+
+    return { users, isLoading, isError, isEmpty, refetch, addUser };
 }

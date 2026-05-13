@@ -1,6 +1,6 @@
 import {useCounter} from "../context/CounterContext"
 
-export function CounterControls() {
+function CounterControls() {
     const { increment, decrement, reset } = useCounter();
 
     return (
@@ -11,3 +11,5 @@ export function CounterControls() {
         </>
     )
 }
+
+export default CounterControls;

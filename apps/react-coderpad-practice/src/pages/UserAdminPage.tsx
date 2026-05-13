@@ -3,17 +3,17 @@ import { useMemo, useState } from "react";
 import { useUsers } from "../hooks/useUsers";
 
 import { useFavorites } from "../context/FavoritesContext";
-import { useCounter } from "../context/CounterContext"
 
 import EmptyState from "../components/EmptyState";
 import UserList from "../components/UserList";
 import ErrorMessage from "../components/ErrorMessage";
 import CounterDisplay from "../components/CounterDisplay";
-import { CounterControls } from "../components/CounterControls";
+import CounterControls from "../components/CounterControls";
+import AddUserForm from "../components/AddUserForm";
 
 function UserAdminPage() {
 
-  const { users, isLoading, isError, isEmpty, refetch } = useUsers();
+  const { users, isLoading, isError, isEmpty, refetch, addUser } = useUsers();
   const { favoriteUserIds } = useFavorites();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -34,6 +34,12 @@ function UserAdminPage() {
   return (
     <main style={{ padding: "1rem" }}>
       <h1>User Admin</h1>
+
+      <br />
+
+      <div>
+        <AddUserForm onAddUser={addUser} />
+      </div>
 
       <label htmlFor="user-search">Search</label>
       <input
