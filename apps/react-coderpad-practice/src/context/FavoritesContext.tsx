@@ -37,17 +37,19 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
                 toggleFavorite,
                 isFavorite,
             }}
-        >{children}</FavoritesContext>
+        >
+            {children}
+        </FavoritesContext>
     )
 
 }
 
 export function useFavorites() {
-  const context = useContext(FavoritesContext);
+    const context = useContext(FavoritesContext);
 
-  if (!context) {
-    throw new Error("useFavorites must be used within a FavoritesProvider");
-  }
+    if (!context) {
+        throw new Error("useFavorites must be used within a FavoritesProvider");
+    }
 
-  return context;
+    return context;
 }
