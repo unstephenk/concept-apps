@@ -17,11 +17,11 @@ export function CounterProvider({ children }: CounterProviderProps) {
     const [count, setCount] = useState(0)
 
     const increment = () => {
-        setCount(count + 1)
+        setCount((currentCount) => currentCount + 1)
     }
 
     const decrement = () => {
-        setCount(count - 1)
+        setCount((currentCount) => currentCount - 1)
     }
 
     const reset = () => {
