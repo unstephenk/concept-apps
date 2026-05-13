@@ -5,9 +5,9 @@ export function CounterControls() {
 
     return (
         <>
-            <button onClick={increment}>Add</button>
-            <button onClick={decrement}>Remove</button>
-            <button onClick={reset}>Reset Counter</button>
+            <button type="button" onClick={increment}>Add</button>
+            <button type="button" onClick={decrement}>Remove</button>
+            <button type="button" onClick={reset}>Reset Counter</button>
         </>
     )
 }
