@@ -1,16 +1,28 @@
-import type { User } from "../types/user"
+import type { User } from "../types/user";
+import { useFavorites } from "../context/FavoritesContext";
 
 type UserCardProps = {
-    user: User;
+  user: User;
 };
 
-const UserCard: React.FC<UserCardProps> = ({ user }) => {
+function UserCard({ user }: UserCardProps) {
+  const { toggleFavorite, isFavorite } = useFavorites();
 
-    return (
-        <>
-            <strong>{user.name}</strong> — {user.email}
-        </>
-    );
-};
+  const favorited = isFavorite(user.id);
+
+  return (
+    <>
+      <strong>{user.name}</strong> — {user.email}
+      <br />
+      <button
+        type="button"
+        onClick={() => toggleFavorite(user.id)}
+        aria-pressed={favorited}
+      >
+        {favorited ? "Unfavorite" : "Favorite"}
+      </button>
+    </>
+  );
+}
 
 export default UserCard;
