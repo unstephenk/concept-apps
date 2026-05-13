@@ -31,7 +31,7 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
     };
 
     return (
-        <FavoritesContext
+        <FavoritesContext.Provider
             value={{
                 favoriteUserIds,
                 toggleFavorite,
@@ -39,7 +39,7 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
             }}
         >
             {children}
-        </FavoritesContext>
+        </FavoritesContext.Provider>
     )
 
 }
