@@ -1,15 +1,20 @@
- import { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useUsers } from "../hooks/useUsers";
+
 import { useFavorites } from "../context/FavoritesContext";
+import { useCounter } from "../context/CounterContext"
+
 import EmptyState from "../components/EmptyState";
 import UserList from "../components/UserList";
 import ErrorMessage from "../components/ErrorMessage";
+import CounterDisplay from "../components/CounterDisplay";
+import { CounterControls } from "../components/CounterControls";
 
 function UserAdminPage() {
- 
- const { users, isLoading, isError, isEmpty, refetch } = useUsers();
- const { favoriteUserIds } = useFavorites();
+
+  const { users, isLoading, isError, isEmpty, refetch } = useUsers();
+  const { favoriteUserIds } = useFavorites();
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredUsers = useMemo(() => {
@@ -59,8 +64,13 @@ function UserAdminPage() {
 
       {!isLoading && !isError && !isEmpty && !hasNoMatchingUsers && (
         <>
-        <UserList users={filteredUsers}></UserList>
-        <p>Total Favorites: {favoriteUserIds.length}</p>
+          <UserList users={filteredUsers}></UserList>
+          <p>Total Favorites: {favoriteUserIds.length}</p>
+
+          <br />
+
+          <CounterDisplay></CounterDisplay>
+          <CounterControls></CounterControls>
         </>
       )}
     </main>

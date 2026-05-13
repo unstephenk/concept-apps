@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
 
-
 type FavoritesContextValue = {
     favoriteUserIds: string[];
     toggleFavorite: (userId: string) => void;
