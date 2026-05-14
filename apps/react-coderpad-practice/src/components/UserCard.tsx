@@ -3,7 +3,7 @@ import { useFavorites } from "../context/FavoritesContext";
 
 type UserCardProps = {
   user: User;
-  onDeleteUser: (userId: string) => void
+  onDeleteUser: (userId: string) => void;
 };
 
 function UserCard({ user, onDeleteUser }: UserCardProps) {

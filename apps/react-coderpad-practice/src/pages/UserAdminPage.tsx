@@ -35,6 +35,8 @@ function UserAdminPage() {
     <main style={{ padding: "1rem" }}>
       <h1>User Admin</h1>
 
+      <p>Total Favorites: {favoriteUserIds.length}</p>
+
       <br />
 
       <div>
@@ -71,7 +73,6 @@ function UserAdminPage() {
       {!isLoading && !isError && !isEmpty && !hasNoMatchingUsers && (
         <>
           <UserList users={filteredUsers} onDeleteUser={deleteUser} />
-          <p>Total Favorites: {favoriteUserIds.length}</p>
 
           <br />
 
