@@ -13,7 +13,7 @@ import AddUserForm from "../components/AddUserForm";
 
 function UserAdminPage() {
 
-  const { users, isLoading, isError, isEmpty, refetch, addUser } = useUsers();
+  const { users, isLoading, isError, isEmpty, refetch, addUser, deleteUser } = useUsers();
   const { favoriteUserIds } = useFavorites();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -70,7 +70,7 @@ function UserAdminPage() {
 
       {!isLoading && !isError && !isEmpty && !hasNoMatchingUsers && (
         <>
-          <UserList users={filteredUsers}></UserList>
+          <UserList users={filteredUsers} onDeleteUser={deleteUser} />
           <p>Total Favorites: {favoriteUserIds.length}</p>
 
           <br />

@@ -43,5 +43,11 @@ export function useUsers() {
         setUsers((currentUserSet) => [...currentUserSet, newUser])
     }
 
-    return { users, isLoading, isError, isEmpty, refetch, addUser };
+    const deleteUser = (userId: string) => {
+        setUsers((currentUserList) =>
+            currentUserList.filter((user) => user.id !== userId)
+        )
+    };
+
+    return { users, isLoading, isError, isEmpty, refetch, addUser, deleteUser };
 }

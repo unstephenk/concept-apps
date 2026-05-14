@@ -3,14 +3,15 @@ import type { User } from "../types/user";
 
 type UserListProps = {
   users: User[];
+  onDeleteUser: (userId: string) => void;
 };
 
-function UserList({ users }: UserListProps) {
+function UserList({ users, onDeleteUser }: UserListProps) {
   return (
     <ul>
       {users.map((user) => (
         <li key={user.id}>
-          <UserCard user={user} />
+          <UserCard user={user} onDeleteUser={onDeleteUser} />
         </li>
       ))}
     </ul>
