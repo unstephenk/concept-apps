@@ -1,21 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
+
 import type { User } from "../types/user";
 
-const fetchUsers = async (): Promise<User[]> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve([
-                { id: "u1", name: "Alice Johnson", email: "alice@test.com" },
-                { id: "u2", name: "Bob Smith", email: "bob@test.com" },
-                { id: "u3", name: "Charlie Davis", email: "charlie@test.com" },
-            ]);
-        }, 1000);
-    });
-};
+import { getUsers, createUser, deleteUser as deleteUserApi } from "../api/usersApi";
+
 
 export function useUsers() {
     const [users, setUsers] = useState<User[]>([]);
-    // const [fullUserSet, setFullUserSet] = useState<User[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isError, setIsError] = useState<boolean>(false);
 
@@ -24,7 +15,7 @@ export function useUsers() {
         setIsError(false);
 
         try {
-            const data = await fetchUsers();
+            const data = await getUsers();
             setUsers(data);
         } catch (err) {
             setIsError(true);
@@ -39,14 +30,20 @@ export function useUsers() {
 
     const isEmpty = users.length === 0;
 
-    const addUser = (newUser: User) => {
-        setUsers((currentUserSet) => [...currentUserSet, newUser])
+    const addUser = async (newUser: User) => {
+        const createdUser = await createUser(newUser);
+        
+        setUsers((currentUserSet) => [...currentUserSet, createdUser])
     }
 
-    const deleteUser = (userId: string) => {
+    const deleteUser = async (userId: string) => {
+        await deleteUserApi(userId);
+
         setUsers((currentUserList) =>
             currentUserList.filter((user) => user.id !== userId)
         )
+
+
     };
 
     return { users, isLoading, isError, isEmpty, refetch, addUser, deleteUser };

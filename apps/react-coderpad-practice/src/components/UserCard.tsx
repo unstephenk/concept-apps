@@ -3,7 +3,7 @@ import { useFavorites } from "../context/FavoritesContext";
 
 type UserCardProps = {
   user: User;
-  onDeleteUser: (userId: string) => void;
+  onDeleteUser: (userId: string) => Promise<void>;
 };
 
 function UserCard({ user, onDeleteUser }: UserCardProps) {
@@ -26,7 +26,9 @@ function UserCard({ user, onDeleteUser }: UserCardProps) {
       </div>
 
       <div>
-        <button type="button" onClick={() => onDeleteUser(user.id)}>
+        <button
+          type="button"
+          onClick={() => onDeleteUser(user.id)}>
           Delete
         </button>
       </div>

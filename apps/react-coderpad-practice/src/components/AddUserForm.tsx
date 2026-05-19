@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import type { User } from "../types/user";
 
 type AddUserFormProps = {
-    onAddUser: (user: User) => void;
+    onAddUser: (user: User) => Promise<void>;
 };
 
 type ActionState = {
@@ -15,9 +15,6 @@ type ActionState = {
 function AddUserForm({ onAddUser }: AddUserFormProps) {
 
     async function submitNewUser(_prevState: ActionState, formData: FormData) {
-        // check to make sure the '@' symbol is in the email field
-        // validate that both form fields are filled in
-        // clear the form after submission
 
         const fullName = formData.get("name") as string;
         const emailAddress = formData.get("email") as string;
@@ -37,7 +34,7 @@ function AddUserForm({ onAddUser }: AddUserFormProps) {
                 email: emailAddress.trim(),
             };
 
-            onAddUser(newUser);
+            await onAddUser(newUser);
 
             // React 19 automatically clears uncontrolled inputs when an action returns successfully
             return { success: true, message: "User successfully added." };

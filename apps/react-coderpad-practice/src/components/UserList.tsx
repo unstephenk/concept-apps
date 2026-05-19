@@ -3,7 +3,7 @@ import type { User } from "../types/user";
 
 type UserListProps = {
   users: User[];
-  onDeleteUser: (userId: string) => void;
+  onDeleteUser: (userId: string) => Promise<void>;
 };
 
 function UserList({ users, onDeleteUser }: UserListProps) {
