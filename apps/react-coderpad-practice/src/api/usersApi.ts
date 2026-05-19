@@ -28,6 +28,4 @@ export async function deleteUser(userId: string): Promise<void> {
   await delay(500);
 
   mockUsers = mockUsers.filter((user) => user.id !== userId);
-
-  alert(`User: ${userId} has been deleted`)
 }

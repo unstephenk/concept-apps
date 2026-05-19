@@ -19,7 +19,7 @@ function AddUserForm({ onAddUser }: AddUserFormProps) {
         const fullName = formData.get("name") as string;
         const emailAddress = formData.get("email") as string;
 
-        if (!fullName || !emailAddress) {
+        if (!fullName.trim() || !emailAddress.trim()) {
             return { success: false, message: "All fields are required." };
         }
 
