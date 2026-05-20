@@ -13,6 +13,8 @@ function App() {
   const [status, setStatus] = useState<LoadStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const initialUsersList = getUsers();
+
   /**
    * TODO:
    * Fetch users when the app loads.
@@ -24,6 +26,20 @@ function App() {
    * - set status to "success"
    * - set error message and status "error" on failure
    */
+
+  if (status === "idle") {
+    setStatus("loading")
+
+    initialUsersList
+      .then((data) => {
+        setUsers(data);
+        setStatus("success")
+      })
+      .catch((err) => {
+        setErrorMessage(err instanceof Error ? err.message : "failed to load users");
+        setStatus("error")
+      })
+  }
 
   const filteredUsers = useMemo(() => {
     /**
@@ -38,6 +54,20 @@ function App() {
      *
      * Search should be case-insensitive.
      */
+
+    const query = searchTerm.trim().toLowerCase();
+
+    if (!query) return users;
+
+    return users.filter((user) => {
+      return(
+        user.email.toLowerCase().includes(query) ||
+        user.fullName.toLowerCase().includes(query) ||
+        user.city.toLowerCase().includes(query) ||
+        user.company.toLowerCase().includes(query)
+      )
+    })
+
     return users;
   }, [users, searchTerm]);
 

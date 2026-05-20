@@ -32,8 +32,22 @@ type ApiUsersResponse = {
  * city and company should safely default to "Unknown" if missing.
  */
 export async function getUsers(): Promise<User[]> {
-  // Replace this placeholder implementation.
-  return [];
+  const res = await fetch(USERS_URL);
+
+  if (!res.ok) {
+    throw new Error('Failed to load users');
+  }
+
+  const data: ApiUsersResponse = await res.json()
+
+  return data.users.map((user) => ({
+    id: user.id,
+    fullName: `${user.firstName} ${user.lastName}`,
+    email: user.email,
+    city: user.address?.city ?? "unknown",
+    company: user.company?.name ?? "unknown",
+    image: user.image
+  }))
 }
 
 export const __testing = {

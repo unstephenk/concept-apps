@@ -1,5 +1,11 @@
 {
     "cSpell.words": [
         "favorited"
-    ]
+    ],
+    "editor.inlineSuggest.edits.allowCodeShifting": "never",
+    "editor.inlineSuggest.edits.renderSideBySide": "never",
+    "editor.inlineSuggest.edits.showLongDistanceHint": false,
+    "github.copilot.enable": {
+        "*": false
+    }
 }
