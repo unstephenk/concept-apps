@@ -44,8 +44,8 @@ export async function getUsers(): Promise<User[]> {
     id: user.id,
     fullName: `${user.firstName} ${user.lastName}`,
     email: user.email,
-    city: user.address?.city ?? "unknown",
-    company: user.company?.name ?? "unknown",
+    city: user.address?.city ?? "Unknown",
+    company: user.company?.name ?? "Unknown",
     image: user.image
   }))
 }

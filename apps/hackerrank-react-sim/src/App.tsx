@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { getUsers } from "./api/usersApi";
 import SearchInput from "./components/SearchInput";
 import StatusMessage from "./components/StatusMessage";
@@ -13,9 +13,7 @@ function App() {
   const [status, setStatus] = useState<LoadStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const initialUsersList = getUsers();
-
-  /**
+   /**
    * TODO:
    * Fetch users when the app loads.
    *
@@ -27,19 +25,34 @@ function App() {
    * - set error message and status "error" on failure
    */
 
-  if (status === "idle") {
-    setStatus("loading")
+  useEffect(() => {
+    let isMounted = true;
 
-    initialUsersList
-      .then((data) => {
+    async function loadUsers() {
+      setStatus("loading")
+      
+      try{
+        const data = await getUsers();
+
+        if (!isMounted) return
         setUsers(data);
         setStatus("success")
-      })
-      .catch((err) => {
-        setErrorMessage(err instanceof Error ? err.message : "failed to load users");
+
+      }
+      catch (err) {
+        setErrorMessage(err instanceof Error ? err.message : "Failed to load users.")
         setStatus("error")
-      })
-  }
+      }
+    }
+
+    void loadUsers();
+
+    return () => {
+      isMounted = false;
+    }
+  }, [])
+
+ 
 
   const filteredUsers = useMemo(() => {
     /**
@@ -68,7 +81,6 @@ function App() {
       )
     })
 
-    return users;
   }, [users, searchTerm]);
 
   const hasSearchTerm = searchTerm.trim().length > 0;
